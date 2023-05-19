@@ -15,20 +15,39 @@ let statesInfo = [
   },
 ];
 
-function displayStates(states) {   
-    for (const stateProfile of states) {
-        console.log(stateProfile.state);
-        console.log("---------");
-        displayCities(stateProfile.cities);
-        console.log();
-    }
+// function displayStates(states) {
+//     for (const stateProfile of states) {
+//         console.log(stateProfile.state);
+//         console.log("---------");
+//         displayCities(stateProfile.cities);
+//         console.log();
+//     }
+// }
+
+function getAllCities(stateInfo) {
+  let cities = [];
+  for (const state of stateInfo) {
+      cities = cities.concat(state.cities);
+  }
+  return cities;
 }
 
+
+function displayStates() {
+  let cities = getAllCities(statesInfo);
+  let sanCities = cities.filter(function (city) {
+    return city.startsWith("San");
+  });
+  return sanCities;
+}
+
+let sanCities = displayStates();
+console.log(sanCities);
+
 function displayCities(cities) {
-    for (const city of cities) {
-        console.log(city);
-        
-    }
+  for (const city of cities) {
+    console.log(city);
+  }
 }
 
 displayStates(statesInfo);

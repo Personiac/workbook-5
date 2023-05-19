@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <div>
+      <img />
+      <p>describe image above</p>
+    </div>
+    <div>
+      <img />
+      <p>describe image above</p>
+    </div>
+    <div>
+      <img />
+      <p>describe image above</p>
+    </div>
+    <script>
+      const paragraphs = document.querySelectorAll("p");
+      const images = document.querySelectorAll("img");
+      let count = 0;  
+      paragraphs.forEach((p) => (
+        p.style.border = "1px solid black",
+        p.style.marginTop = "1rem",
+        p.style.padding = ".5rem"
+      ));
+      images.forEach((img) => (img.style.border = "1px solid black"));
+      images.forEach((img) => {  
+          img.classList.add("roundedImg");
+          img.src = `https://placewaifu.com/image/200?${count}`;
+          img.alt = "Some anime img";
+          count += 1;
+      });
+    </script>
+  </body>
+</html>

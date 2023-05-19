@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Images</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.classless.min.css" />
+  </head>
+  <body>
+    <header></header>
+    <main>
+      <label for="imgDDL">Image List</label>
+      <select name="imgList" id="imgDDL"></select>
+      <button id="addImg" onclick="displayImgsList()">Add Image</button>
+      <button id="clearImg" onclick="clearImgs()">Clear Image</button>
+      <div id="imgsDiv"></div>
+    </main>
+    <script>
+      "use strict";
+
+      let imgDDL = document.querySelector("#imgDDL");
+      let imgFiles = [
+        { name: "images/megaman black ace.jpg", desc: "MegaMan Starforce: Black Ace" },
+        { name: "images/megaman red joker.jpg", desc: "MegaMan Starforce: Red Joker" },
+        { name: "images/megaman leo.jpg", desc: "MegaMan Starforce: Leo" },
+        { name: "images/megaman pegasus.jpg", desc: "MegaMan Starforce: Pegasus" },
+        { name: "images/megaman dragon.jpg", desc: "MegaMan Starforce: Dragon" },
+      ];
+      let addImgBtn = document.querySelector("#addImg");
+      let clearImgBtn = document.querySelector("#clearImg");
+      let imgsDiv = document.querySelector("#imgsDiv");
+
+      let selectedOption = document.createElement("option");
+      selectedOption.value = " ";
+      selectedOption.textContent = "Select option...";
+      imgDDL.appendChild(selectedOption);
+
+      function displayImgsList() {
+        //Create img element
+        let imgElement = document.createElement("img");
+        let imgSrc = imgDDL.value;
+        if (!imgSrc) {
+          return;
+        }
+        imgElement.src = imgSrc;
+        imgElement.width = 200;
+        imgElement.height = 200;
+        imgsDiv.appendChild(imgElement);
+      }
+
+      function clearImgs() {
+        imgsDiv.innerHTML = "";
+      }
+
+      function loadOptionsList() {
+        //Make list of options from array
+        for (const img of imgFiles) {
+          let option = new Option(img.desc, img.name);
+          imgDDL.appendChild(option);
+        }
+      }
+      loadOptionsList();
+    </script>
+  </body>
+</html>

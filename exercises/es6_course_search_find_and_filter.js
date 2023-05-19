@@ -36,18 +36,36 @@ let courses = [
     StartDate: "04/25/23",
     Fee: "50.00",
   },
+  {
+    CourseId: "VAMP100",
+    Title: "Introduction to Vampirism",
+    Location: "Classroom 3",
+    StartDate: "10/01/23",
+    Fee: "25.00",
+  },
+  {
+    CourseId: "CHEF100",
+    Title: "Introduction to Cooking",
+    Location: "Classroom 1",
+    StartDate: "07/05/23",
+    Fee: "60.00",
+  },
 ];
 
 function findCourseById(courseId) {
-  for (const course of courses) {
+  let course = courses.find(function (course) {
     if (course.CourseId == courseId) {
-      return course;
+      return true;
+    } else {
+      return false;
     }
-  }
+  });
+  return course;
 }
 
 // When does the PROG200 course start?
 function courseStartDate(courseId) {
+  // let course = findCourseById(courseId);
   let course = findCourseById(courseId);
   console.log(`${course.CourseId} starts on ${course.StartDate}.`);
 }
@@ -66,19 +84,21 @@ console.log();
 
 // What are the titles of the courses that cost $50 or less?
 function findCheapCourses() {
-  let cheapCourses = [];
-  for (const course of courses) {
+  let cheapCourses = courses.filter(function (course) {
     const courseFee = parseFloat(course.Fee);
-    if (courseFee <= 50) {
-      cheapCourses.push(course);
-    }
-  }
+    return courseFee <= 50; // Same function as line 76 through line 80.
+    //   if (courseFee <= 50) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+  });
   return cheapCourses;
 }
 
 function cheapCourseList(courses) {
   let cheapCourses = findCheapCourses();
-  console.log(`Here's a list of all ${cheapCourses.length} courses that are $50 or less:`);
+  console.log(`Here's a list of all the courses that are $50 or less:`);
   for (const course of cheapCourses) {
     console.log(`${course.CourseId} ${course.Title}: $${course.Fee}`);
   }
@@ -87,14 +107,10 @@ function cheapCourseList(courses) {
 cheapCourseList(courses);
 console.log();
 
-// What classes meet in "Classroom 1"?
 function findC1Courses(courseId) {
-  let c1Courses = [];
-  for (const course of courses) {
-    if (course.Location == "Classroom 1") {
-      c1Courses.push(course);
-    }
-  }
+  let c1Courses = courses.filter(function (course) {
+    return course.Location == "Classroom 1";
+  });
   return c1Courses;
 }
 
@@ -102,8 +118,44 @@ function c1CourseList(courses) {
   let c1Courses = findC1Courses();
   console.log(`Here's a list of all ${c1Courses.length} courses that meet in Classroom 1:`);
   for (const course of c1Courses) {
-    console.log(`${course.CourseId} ${course.Title}: $${course.Fee}, ${course.Location}`);
+    console.log(`${course.CourseId} ${course.Title}: (${course.Location}), $${course.Fee}, ${course.StartDate}`);
   }
 }
 
 c1CourseList(courses);
+console.log();
+
+//Find all courses that end with 100 in their ID
+function findId100Courses(courseId) {
+  let id100Courses = courses.filter(function (course) {
+    return course.CourseId.endsWith("100");
+  });
+  return id100Courses;
+}
+
+function id100CourseList(courses) {
+  let id100Courses = findId100Courses();
+  console.log(`Here's a list of all ${id100Courses.length} courses that have the ID of 100:`);
+  for (const course of id100Courses) {
+    console.log(`${course.CourseId} ${course.Title}`);
+  }
+}
+
+id100CourseList(courses);
+console.log();
+
+//Find more info on vampire class
+function findVampCourse(courseId) {
+    return courses.find(function (course) {
+        return course.CourseId.startsWith("VAMP");
+    });
+}
+
+function vampInfo() {
+    let vampCourse = findVampCourse("VAMP");
+    console.log(`You found the special ${vampCourse.CourseId} course! Here's more info on it:`);
+    console.log(vampCourse);
+}
+
+vampInfo();
+
